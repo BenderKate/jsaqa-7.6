@@ -1,5 +1,4 @@
 describe("Log in", () => {
-
   it("Should successfully open the page", () => {
     cy.contains("Books list").should("be.visible");
   });
@@ -7,9 +6,9 @@ describe("Log in", () => {
   it("Should successfully login", () => {
     cy.visit("/booksNode");
     cy.login("test@test.com", "test");
-    cy.contains("Добро пожаловать test@test.com").should("be.visible");
+    cy.contains("Добро пожаловать").should("be.visible");
   });
-  
+
   it("Should not login with empty login", () => {
     cy.visit("/booksNode");
     cy.contains("Log in").click();
@@ -23,7 +22,7 @@ describe("Log in", () => {
       .then(($el) => $el[0].validationMessage)
       .should("contain", "Заполните это поле.");
   });
-  
+
   it("Should not login with empty password", () => {
     cy.visit("/booksNode");
     cy.contains("Log in").click();
@@ -35,29 +34,27 @@ describe("Log in", () => {
   });
 });
 
-
-  describe("Favorites", () => {
-    beforeEach(() => {
-      cy.visit("/");
-      cy.login("test@test.com", "test");
-      cy.contains("Добро пожаловать").should("be.visible");
-    });
-  
-    it("Should successfully create book", () => {
-      cy.createNewBook("Harry Potter", "JR");
-      cy.contains("Harry Potter").should("be.visible");
-    });
-  
-    it("Should successfully add book to favorites", () => {
-      cy.addBookToFavorite("Harry Potter 2", "JR");
-      cy.contains("Delete from favorite").should("be.visible");
-    });
-  
-    it("Should successfully deleted book from favorites", () => {
-      cy.addBookToFavorite("Harry Potter 3", "JR");
-      cy.contains("Delete from favorite").should("be.visible");
-    //   cy.contains("Delete from favorite").click();
-    //   cy.contains("Add to favorite").should("be.visible");
-    });
+describe("Favorite", () => {
+  beforeEach(() => {
+    cy.visit("/");
+    cy.login("test@test.com", "test");
+    cy.contains("Добро пожаловать").should("be.visible");
   });
 
+  it("Should successfully create book", () => {
+    cy.createNewBook("Harry Potter", "JR");
+    cy.contains("Harry Potter").should("be.visible");
+  });
+
+  it("Should successfully add book to favorite", () => {
+    cy.addBookToFavorite("Harry Potter 2", "JR");
+    cy.contains("Delete from favorite").should("be.visible");
+  });
+
+  it("Should successfully delete book from favorite", () => {
+    cy.addBookToFavorite("Harry Potter 3", "JR");
+    cy.contains("Delete from favorite").should("be.visible");
+    //   cy.contains("Delete from favorite").click();
+    //   cy.contains("Add to favorite").should("be.visible");
+  });
+});
