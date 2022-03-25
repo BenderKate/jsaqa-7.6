@@ -11,10 +11,7 @@ describe("Log in", () => {
 
   it("Should not login with empty login", () => {
     cy.visit("/booksNode");
-    cy.contains("Log in").click();
-    cy.get("#mail").type(" ");
-    cy.get("#pass").type("test");
-    cy.contains("Submit").click();
+    cy.login(" ", "test")
     cy.get("#mail")
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
@@ -54,7 +51,5 @@ describe("Favorite", () => {
   it("Should successfully delete book from favorite", () => {
     cy.addBookToFavorite("Harry Potter 3", "JR");
     cy.contains("Delete from favorite").should("be.visible");
-    //   cy.contains("Delete from favorite").click();
-    //   cy.contains("Add to favorite").should("be.visible");
   });
 });
